@@ -75,7 +75,7 @@ export default function Home() {
       <div class="card-header" id="heading${carouselId}">
           <h2 class="clearfix mb-0">
               <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${carouselId}" aria-expanded="false" aria-controls="collapse${carouselId}">
-    <span style="font-weight: normal;">${className}</span>
+                <span style="font-weight: normal;">${className}</span>
               </a>
           </h2>
       </div>
