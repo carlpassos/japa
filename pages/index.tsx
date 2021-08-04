@@ -94,7 +94,7 @@ export default function Home() {
                       `
 
   return (
-    <Stack w="100vw" minH="100vh" align="center" p="50px" spacing={5}>
+    <Stack w="100vw" minH="100vh" align="center" p="50px 10px" spacing={5}>
       <Heading textTransform="uppercase" fontSize={25} pb="10px">
         Gerador de Carrosseis
       </Heading>
@@ -121,41 +121,100 @@ export default function Home() {
           <Text color="red">Preencha os campos acima</Text>
           }
           {videosArray &&
-            videosArray.map(number => {
-              return (
-              
-                <Grid key={`flexdosinputs${number}`} gap={5} templateColumns="1fr 1fr">
-                  <JapaInput
-                    onChange={(e) => {insertVideoData(number-1, "name", e.currentTarget.value)}}
-                    id={`nome${number}`}
-                    label={`Nome do video ${number}`}
-                    placeholder={`Digite o nome do video ${number}`}
-                  />
-                  <JapaInput
-                    onChange={(e) => {insertVideoData(number-1, "url", e.currentTarget.value)}}
-                    id={`url${number}`}
-                    label={`Url do video ${number}`}
-                    placeholder={`Digite a url do video ${number}`}
-                  />
-                </Grid>
-            )
-            })
+            <>
+            <Text mt="40px !important" fontSize="20px" fontWeight="semibold">
+              Informe a URL e o titulo dos videos:
+            </Text>
+            <Grid gridTemplateColumns="1fr 1fr 1fr" gap={5}>
+              {
+              videosArray.map(number => {
+                return (
+                
+                 <Stack
+                    border={
+                      `1px solid
+                      ${videosInfo[number - 1].name && videosInfo[number - 1].url.length > 6 ?
+                        "rgba(84, 255, 152, 0.332)" :
+                        "rgba(255, 84, 84, 0.332)"}
+                      `}
+                    p="10px"
+                    key={`flexdosinputs${number}`}
+                    gap={5}
+                    borderRadius="5px"
+                    justify="center"
+                    templateColumns="1fr 1fr"
+                  >
+                    <Flex
+                      w="100%"
+                      h="140px"
+                      backgroundColor="whiteAlpha.100"
+                      align="center"
+                      justify="center"
+                      borderRadius="5px"
+                      position="relative"
+                      role="group"
+                    >
+                       {videosInfo[number - 1].url.length > 6 && <iframe src={`https://player.vimeo.com/video/${videosInfo[number - 1].url}`} allow="autoplay; fullscreen" width="100%" height="100%"></iframe>}
+                      <Flex
+                        _groupHover={{
+                          display: `${videosInfo[number - 1].url.length > 6 ? "none" : "flex"}`,
+                        }}
+                        w="100%"
+                        h="100%"
+                        bgColor="blackAlpha.800"
+                        position="absolute"
+                        align="center"
+                        justify="center"
+                        zIndex="100"
+                      >
+                      <Text
+                        color={!videosInfo[number - 1].name ? "red.800" : "white"}
+                        fontWeight="semibold"
+                        fontSize="20px"
+                      >
+                       {videosInfo[number - 1].name ? videosInfo[number - 1].name :  "Informe o Titulo"}
+                      </Text>
+                      </Flex>
+                    </Flex>
+                    <JapaInput
+                      onChange={(e) => {insertVideoData(number-1, "name", e.currentTarget.value)}}
+                      id={`nome${number}`}
+                      label={`Nome do video ${number}`}
+                      placeholder={`Digite o nome do video ${number}`}
+                    />
+                    <JapaInput
+                      onChange={(e) => {insertVideoData(number-1, "url", e.currentTarget.value)}}
+                      id={`url${number}`}
+                      label={`Url do video ${number}`}
+                      placeholder={`Digite a url do video ${number}`}
+                    />
+                  </Stack>
+              )
+              })
+            }
+            </Grid>
+            </>
           }
 
           <Heading mt="100px !important" mb="20px !important">
             {className}
           </Heading>
+          
+            
+
+            
 
               {carouselId && className && videoNumbers &&
-                <CopyBlock
-                style={{width: "100%"}}
-                language="html"
-                text={templateHtmlOne+templateHtmlTwo+templateHtmlThree+templateHtmlFour+templateHtmlFive}
-                showLineNumbers={true}
-                theme={dracula}
-                wrapLines={true}
-                codeBlock
-              />
+                <Flex maxW="800px" className="codeFlex">
+                  <CopyBlock
+                    language="html"
+                    text={templateHtmlOne+templateHtmlTwo+templateHtmlThree+templateHtmlFour+templateHtmlFive}
+                    showLineNumbers={true}
+                    theme={dracula}
+                    wrapLines={true}
+                    codeBlock
+                  />
+              </Flex>
               }
 
     </Stack>
